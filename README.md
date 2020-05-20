@@ -1,0 +1,1 @@
+# dynamics-of-structures-course
