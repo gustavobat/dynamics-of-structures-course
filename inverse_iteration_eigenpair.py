@@ -8,7 +8,7 @@ def assert_matrices_dimensions(mat_a, mat_b):
 
 
 # TODO comment code and test number of rotation/sweeps against the book example
-def calculate_eigenpair(m, k, tol):
+def calculate_eigenpair(m, k, tol, shift=0.):
     m = np.array(m)
     k = np.array(k)
     assert_matrices_dimensions(m, k)
@@ -24,19 +24,23 @@ def calculate_eigenpair(m, k, tol):
     has_converged = False
     while not has_converged:
         iteration_counter += 1
-        x = np.linalg.inv(k).dot(y)
+        shifted_k = k - shift * m
+        x = np.linalg.inv(shifted_k).dot(y)
         new_y = m.dot(x)
         # Calculation of Rayleigh quotient
         rayleigh_coef = np.transpose(x).dot(y) / np.transpose(x).dot(new_y)
+        eigen_val = rayleigh_coef + shift
         # Normalization of the iteration vector
-        y = (1 / np.sqrt((np.transpose(x).dot(new_y)))) * new_y
+        new_y = (1 / np.sqrt((np.transpose(x).dot(new_y)))) * new_y
         # Convergence check
-        if np.abs((rayleigh_coef - eigen_val) / rayleigh_coef) < tol:
+        if np.abs((eigen_val - shift) / eigen_val) < tol:
             has_converged = True
 
-        eigen_val = rayleigh_coef
+        y = new_y
+        shift = eigen_val
+
         if has_converged:
-            eigen_vec = (1 / np.sqrt((np.transpose(x).dot(new_y)))) * x
+            eigen_vec = np.linalg.inv(m).dot(y)
 
     return eigen_val, eigen_vec
 
@@ -53,7 +57,8 @@ def main():
          [-4.27270e5, 2.66592e6, -9.82118e6, 7.51725e6]]
 
     tol = 1e-6
-    val, vec = calculate_eigenpair(m, k, tol)
+    shift = 280.
+    val, vec = calculate_eigenpair(m, k, tol, shift)
     print(val)
     print(vec)
 
