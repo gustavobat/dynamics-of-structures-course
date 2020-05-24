@@ -29,6 +29,8 @@ def sort_eigenpairs(eigen_vals, eigen_vecs):
 
 # TODO comment code and test number of rotation/sweeps against the book example
 def calculate_eigenpairs(m, k, tol):
+    m = np.array(m)
+    k = np.array(k)
     assert_matrices_dimensions(m, k)
     ndof = m.shape[0]
 
@@ -101,25 +103,3 @@ def calculate_eigenpairs(m, k, tol):
     eigen_vals, eigen_vecs = sort_eigenpairs(eigen_vals, eigen_vecs)
 
     return eigen_vals, eigen_vecs
-
-
-def main():
-    m = np.array([[4, 1, 0, 0],
-                  [1, 4, 1, 0],
-                  [0, 1, 4, 1],
-                  [0, 0, 1, 2]])
-
-    k = np.array([[2, -1, 0, 0],
-                  [-1, 2, -1, 0],
-                  [0, -1, 2, -1],
-                  [0, 0, -1, 1]])
-    tol = 1e-6
-
-    eigen_vals, eigen_vecs = calculate_eigenpairs(m, k, tol)
-    np.set_printoptions(formatter={'float': lambda x: "{0:0.5f}".format(x)})
-    print("Eigen values = \n", eigen_vals)
-    print("Eigen vectors = \n", eigen_vecs)
-
-
-if __name__ == "__main__":
-    main()
