@@ -4,5 +4,3 @@ dependencies:
   - numpy
   - matplotlib
   - jupyterlab>=0.35
-  - pip:
-    - jupyterlab_latex
