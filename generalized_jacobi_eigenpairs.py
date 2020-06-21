@@ -27,7 +27,6 @@ def sort_eigenpairs(eigen_vals, eigen_vecs):
     return eigen_vals, eigen_vecs
 
 
-# TODO comment code and test number of rotation/sweeps against the book example
 def calculate_eigenpairs(m, k, tol):
     m = np.array(m)
     k = np.array(k)

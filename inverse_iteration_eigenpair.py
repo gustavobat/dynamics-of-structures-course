@@ -7,7 +7,6 @@ def assert_matrices_dimensions(mat_a, mat_b):
     assert mat_a.shape[0] == mat_b.shape[0], "Matrices are not the same size."
 
 
-# TODO comment code and test number of rotation/sweeps against the book example
 def calculate_eigenpair(m, k, tol, shift=0.):
     m = np.array(m)
     k = np.array(k)
@@ -36,6 +35,7 @@ def calculate_eigenpair(m, k, tol, shift=0.):
         if np.abs((eigen_val - shift) / eigen_val) < tol:
             has_converged = True
 
+        # Update values
         y = new_y
         shift = eigen_val
 
